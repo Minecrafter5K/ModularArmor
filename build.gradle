@@ -8,7 +8,7 @@ group = 'de.miniwar'
 version = '1.0-SNAPSHOT'
 
 java {
-    archivesBaseName = 'ModularArmor'
+    archivesBaseName = 'modulararmor'
     toolchain.languageVersion = JavaLanguageVersion.of(17)
 }
 
@@ -50,7 +50,7 @@ minecraft {
             property 'forge.logging.console.level', 'debug'
 
                         // Comma-separated list of namespaces to load gametests from. Empty = all namespaces.
-            property 'forge.enabledGameTestNamespaces', 'ModularArmor'
+            property 'forge.enabledGameTestNamespaces', 'modulararmor'
             
             mods {
                 modulararmor {
@@ -66,7 +66,7 @@ minecraft {
 
             property 'forge.logging.console.level', 'debug'
 
-                        property 'forge.enabledGameTestNamespaces', 'ModularArmor'
+                        property 'forge.enabledGameTestNamespaces', 'modulararmor'
             
             mods {
                 modulararmor {
@@ -85,7 +85,7 @@ minecraft {
 
             property 'forge.logging.console.level', 'debug'
 
-            property 'forge.enabledGameTestNamespaces', 'ModularArmor'
+            property 'forge.enabledGameTestNamespaces', 'modulararmor'
 
             mods {
                 modulararmor {
