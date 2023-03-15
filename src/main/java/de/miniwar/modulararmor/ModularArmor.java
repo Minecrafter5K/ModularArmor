@@ -1,6 +1,7 @@
 package de.miniwar.modulararmor;
 
 import com.mojang.logging.LogUtils;
+import de.miniwar.modulararmor.block.ModBlocks;
 import de.miniwar.modulararmor.item.ModItems;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraftforge.api.distmarker.Dist;
@@ -24,6 +25,7 @@ public class ModularArmor {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
         ModItems.register(modEventBus);
+        ModBlocks.register(modEventBus);
 
         modEventBus.addListener(this::commonSetup);
         MinecraftForge.EVENT_BUS.register(this);
@@ -36,6 +38,13 @@ public class ModularArmor {
     private void addCreative(CreativeModeTabEvent.BuildContents event) {
         if (event.getTab() == CreativeModeTabs.COMBAT) {
             event.accept(ModItems.TEST_ITEM);
+            event.accept(ModItems.MODULAR_HELMET);
+            event.accept(ModItems.MODULAR_CHESTPLATE);
+            event.accept(ModItems.MODULAR_LEGGINS);
+            event.accept(ModItems.MODULAR_BOOTS);
+        }
+        if (event.getTab() == CreativeModeTabs.FUNCTIONAL_BLOCKS) {
+            event.accept(ModBlocks.ARMOR_MODIFIER_BLOCK);
         }
     }
 
