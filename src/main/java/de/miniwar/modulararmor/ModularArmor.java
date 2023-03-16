@@ -2,7 +2,11 @@ package de.miniwar.modulararmor;
 
 import com.mojang.logging.LogUtils;
 import de.miniwar.modulararmor.block.ModBlocks;
+import de.miniwar.modulararmor.block.entity.ModBlockEntites;
 import de.miniwar.modulararmor.item.ModItems;
+import de.miniwar.modulararmor.screen.ArmorModifierScreen;
+import de.miniwar.modulararmor.screen.ModMenuTypes;
+import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
@@ -26,6 +30,7 @@ public class ModularArmor {
 
         ModItems.register(modEventBus);
         ModBlocks.register(modEventBus);
+        ModBlockEntites.register(modEventBus);
 
         modEventBus.addListener(this::commonSetup);
         MinecraftForge.EVENT_BUS.register(this);
@@ -53,6 +58,7 @@ public class ModularArmor {
     public static class ClientModEvents {
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event) {
+            MenuScreens.register(ModMenuTypes.ARMOR_MODIFIER_MENU.get(), ArmorModifierScreen::new);
         }
     }
 }
