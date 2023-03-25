@@ -24,7 +24,7 @@ public class ArmorModifierMenu extends AbstractContainerMenu {
 
     public ArmorModifierMenu(int id, Inventory inv, BlockEntity entity) {
         super(ModMenuTypes.ARMOR_MODIFIER_MENU.get(), id);
-        checkContainerSize(inv, 3);
+        checkContainerSize(inv, 9);
         blockEntity = (ArmorModifierBlockEntity) entity;
         this.level = inv.player.level;
 
@@ -32,9 +32,11 @@ public class ArmorModifierMenu extends AbstractContainerMenu {
         addPlayerHotbar(inv);
 
         this.blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(handler -> {
-            this.addSlot(new SlotItemHandler(handler, 0, 12, 15));
-            this.addSlot(new SlotItemHandler(handler, 1, 86, 15));
-            this.addSlot(new SlotItemHandler(handler, 2, 86, 60));
+            this.addSlot(new SlotItemHandler(handler, 0, 78, 23));
+
+            for (int i = 0; i < 8; ++i) {
+                this.addSlot(new SlotItemHandler(handler, i + 1, 8 + i * 20, 50));
+            }
         });
     }
 
@@ -54,7 +56,7 @@ public class ArmorModifierMenu extends AbstractContainerMenu {
     private static final int TE_INVENTORY_FIRST_SLOT_INDEX = VANILLA_FIRST_SLOT_INDEX + VANILLA_SLOT_COUNT;
 
     // THIS YOU HAVE TO DEFINE!
-    private static final int TE_INVENTORY_SLOT_COUNT = 3;  // must be the number of slots you have!
+    private static final int TE_INVENTORY_SLOT_COUNT = 9;  // must be the number of slots you have!
 
     @Override
     public ItemStack quickMoveStack(Player playerIn, int index) {
@@ -97,14 +99,14 @@ public class ArmorModifierMenu extends AbstractContainerMenu {
     private void addPlayerInventory(Inventory playerInventory) {
         for (int i = 0; i < 3; ++i) {
             for (int l = 0; l < 9; ++l) {
-                this.addSlot(new Slot(playerInventory, l + i * 9 + 9, 8 + l * 18, 86 + i * 18));
+                this.addSlot(new Slot(playerInventory, l + i * 9 + 9, 8 + l * 18, 84 + i * 18));
             }
         }
     }
 
     private void addPlayerHotbar(Inventory playerInventory) {
         for (int i = 0; i < 9; ++i) {
-            this.addSlot(new Slot(playerInventory, i, 8 + i * 18, 144));
+            this.addSlot(new Slot(playerInventory, i, 8 + i * 18, 142));
         }
     }
 }

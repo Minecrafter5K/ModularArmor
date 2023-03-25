@@ -31,6 +31,7 @@ public class ModularArmor {
         ModItems.register(modEventBus);
         ModBlocks.register(modEventBus);
         ModBlockEntites.register(modEventBus);
+        ModMenuTypes.register(modEventBus);
 
         modEventBus.addListener(this::commonSetup);
         MinecraftForge.EVENT_BUS.register(this);
