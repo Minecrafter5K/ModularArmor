@@ -1,4 +1,4 @@
-package de.miniwar.modulararmor.screen;
+package de.miniwar.modulararmor.gui.screen;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;

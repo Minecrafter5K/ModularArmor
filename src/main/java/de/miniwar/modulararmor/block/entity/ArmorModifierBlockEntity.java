@@ -1,6 +1,6 @@
 package de.miniwar.modulararmor.block.entity;
 
-import de.miniwar.modulararmor.screen.ArmorModifierMenu;
+import de.miniwar.modulararmor.gui.screen.ArmorModifierMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;

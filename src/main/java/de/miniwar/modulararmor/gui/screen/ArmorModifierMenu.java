@@ -1,7 +1,8 @@
-package de.miniwar.modulararmor.screen;
+package de.miniwar.modulararmor.gui.screen;
 
 import de.miniwar.modulararmor.block.ModBlocks;
 import de.miniwar.modulararmor.block.entity.ArmorModifierBlockEntity;
+import de.miniwar.modulararmor.gui.slot.RestrictedInputSlot;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -32,10 +33,11 @@ public class ArmorModifierMenu extends AbstractContainerMenu {
         addPlayerHotbar(inv);
 
         this.blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(handler -> {
-            this.addSlot(new SlotItemHandler(handler, 0, 78, 23));
+            this.addSlot(new RestrictedInputSlot(handler, 0, 79, 23, RestrictedInputSlot.PlacableItemType.ARMOR));
+//            this.addSlot(new SlotItemHandler(handler, 0, 78, 23));
 
             for (int i = 0; i < 8; ++i) {
-                this.addSlot(new SlotItemHandler(handler, i + 1, 8 + i * 20, 50));
+                this.addSlot(new SlotItemHandler(handler, i + 1, 10 + i * 20, 50));
             }
         });
     }

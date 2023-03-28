@@ -21,7 +21,7 @@ public class ModItems {
     public static final RegistryObject<Item> MODULAR_CHESTPLATE = ITEMS.register("modular_chestplate",
             () -> new ArmorItem(ModArmorMaterials.MODULAR, ArmorItem.Type.CHESTPLATE,
                     new Item.Properties()));
-    public static final RegistryObject<Item> MODULAR_LEGGINS = ITEMS.register("modular_leggins",
+    public static final RegistryObject<Item> MODULAR_LEGGINGS = ITEMS.register("modular_leggings",
             () -> new ArmorItem(ModArmorMaterials.MODULAR, ArmorItem.Type.LEGGINGS,
                     new Item.Properties()));
     public static final RegistryObject<Item> MODULAR_BOOTS = ITEMS.register("modular_boots",

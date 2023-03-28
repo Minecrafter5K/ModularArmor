@@ -1,4 +1,4 @@
-package de.miniwar.modulararmor.screen;
+package de.miniwar.modulararmor.gui.screen;
 
 import de.miniwar.modulararmor.ModularArmor;
 import net.minecraft.world.inventory.AbstractContainerMenu;

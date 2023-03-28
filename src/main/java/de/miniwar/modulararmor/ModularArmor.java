@@ -4,8 +4,8 @@ import com.mojang.logging.LogUtils;
 import de.miniwar.modulararmor.block.ModBlocks;
 import de.miniwar.modulararmor.block.entity.ModBlockEntites;
 import de.miniwar.modulararmor.item.ModItems;
-import de.miniwar.modulararmor.screen.ArmorModifierScreen;
-import de.miniwar.modulararmor.screen.ModMenuTypes;
+import de.miniwar.modulararmor.gui.screen.ArmorModifierScreen;
+import de.miniwar.modulararmor.gui.screen.ModMenuTypes;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraftforge.api.distmarker.Dist;
@@ -46,7 +46,7 @@ public class ModularArmor {
             event.accept(ModItems.TEST_ITEM);
             event.accept(ModItems.MODULAR_HELMET);
             event.accept(ModItems.MODULAR_CHESTPLATE);
-            event.accept(ModItems.MODULAR_LEGGINS);
+            event.accept(ModItems.MODULAR_LEGGINGS);
             event.accept(ModItems.MODULAR_BOOTS);
         }
         if (event.getTab() == CreativeModeTabs.FUNCTIONAL_BLOCKS) {
