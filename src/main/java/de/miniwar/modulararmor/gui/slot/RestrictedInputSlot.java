@@ -8,8 +8,8 @@ import net.minecraftforge.items.SlotItemHandler;
 public class RestrictedInputSlot extends SlotItemHandler {
     private final PlacableItemType which;
 
-    public RestrictedInputSlot(IItemHandler itemHandler, int p_40224_, int p_40225_, int p_40226_, PlacableItemType valid) {
-        super(itemHandler, p_40224_, p_40225_, p_40226_);
+    public RestrictedInputSlot(IItemHandler itemHandler, int index, int xPosition, int yPosition, PlacableItemType valid) {
+        super(itemHandler, index, xPosition, yPosition);
         this.which = valid;
     }
 

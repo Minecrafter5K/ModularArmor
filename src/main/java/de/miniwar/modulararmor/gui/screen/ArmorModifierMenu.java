@@ -2,7 +2,10 @@ package de.miniwar.modulararmor.gui.screen;
 
 import de.miniwar.modulararmor.block.ModBlocks;
 import de.miniwar.modulararmor.block.entity.ArmorModifierBlockEntity;
+import de.miniwar.modulararmor.gui.slot.DeactivatableSlot;
 import de.miniwar.modulararmor.gui.slot.RestrictedInputSlot;
+import de.miniwar.modulararmor.gui.slot.SlotValidator;
+import de.miniwar.modulararmor.item.ModItems;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -15,7 +18,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.items.SlotItemHandler;
 
-public class ArmorModifierMenu extends AbstractContainerMenu {
+public class ArmorModifierMenu extends AbstractContainerMenu implements SlotValidator {
     public final ArmorModifierBlockEntity blockEntity;
     private final Level level;
 
@@ -34,12 +37,20 @@ public class ArmorModifierMenu extends AbstractContainerMenu {
 
         this.blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(handler -> {
             this.addSlot(new RestrictedInputSlot(handler, 0, 79, 23, RestrictedInputSlot.PlacableItemType.ARMOR));
-//            this.addSlot(new SlotItemHandler(handler, 0, 78, 23));
 
             for (int i = 0; i < 8; ++i) {
-                this.addSlot(new SlotItemHandler(handler, i + 1, 10 + i * 20, 50));
+                this.addSlot(new DeactivatableSlot(this, handler, i + 1, 10 + i * 20, 50));
             }
         });
+    }
+
+    @Override
+    public boolean isValidItemForSlot(ItemStack stack) {
+        if (stack.getItem() == ModItems.TEST_ITEM.get() && this.slots.get(36).hasItem()) {
+            return true;
+        }
+
+        return false;
     }
 
     // CREDIT GOES TO: diesieben07 | https://github.com/diesieben07/SevenCommons
