@@ -43,13 +43,18 @@ public class ModularArmor {
 
     private void addCreative(CreativeModeTabEvent.BuildContents event) {
         if (event.getTab() == CreativeModeTabs.COMBAT) {
-            event.accept(ModItems.TEST_ITEM);
             event.accept(ModItems.MODULAR_HELMET);
             event.accept(ModItems.MODULAR_CHESTPLATE);
             event.accept(ModItems.MODULAR_LEGGINGS);
             event.accept(ModItems.MODULAR_BOOTS);
-            event.accept(ModItems.BASIC_BATTERY);
+
             event.accept(ModItems.ELYTRA_UPGRADE);
+            event.accept(ModItems.PIGLIN_UPGRADE);
+            event.accept(ModItems.SPEED_UPGRADE);
+            event.accept(ModItems.SNOW_WALKER_UPGRADE);
+
+            event.accept(ModItems.TEST_ITEM);
+            event.accept(ModItems.BASIC_BATTERY);
         }
         if (event.getTab() == CreativeModeTabs.FUNCTIONAL_BLOCKS) {
             event.accept(ModBlocks.ARMOR_MODIFIER_BLOCK);

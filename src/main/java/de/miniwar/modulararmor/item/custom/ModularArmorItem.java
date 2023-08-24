@@ -10,6 +10,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterial;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.common.capabilities.Capability;
@@ -43,32 +44,12 @@ public class ModularArmorItem extends ArmorItem {
 
     @Override
     public void onArmorTick(ItemStack stack, Level level, Player player) {
-        super.onArmorTick(stack, level, player);
-        if (!level.isClientSide) {
-            stack.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(cap -> {
-                for (int i = 0; i < cap.getSlots(); i++) {
-                    ItemStack upgrade = cap.getStackInSlot(i);
-                    if (upgrade.getItem() == ModItems.TEST_ITEM.get()) {
-                        player.addEffect(new MobEffectInstance(MobEffects.LUCK, 2));
-                    }
-                }
-            });
-        }
+        checkForUpgrade(stack, ModItems.SPEED_UPGRADE.get());
     }
 
     @Override
     public boolean canElytraFly(ItemStack stack, LivingEntity entity) {
-        LazyOptional<IItemHandler> cap = stack.getCapability(ForgeCapabilities.ITEM_HANDLER);
-        if (cap.isPresent()) {
-            IItemHandler handler = cap.orElseThrow(IllegalStateException::new);
-            for (int i = 0; i < handler.getSlots(); i++) {
-                ItemStack upgrade = handler.getStackInSlot(i);
-                if (upgrade.getItem() == ModItems.ELYTRA_UPGRADE.get()) {
-                    return true;
-                }
-            }
-        }
-        return false;
+        return checkForUpgrade(stack, ModItems.ELYTRA_UPGRADE.get());
     }
 
     @Override
@@ -80,6 +61,30 @@ public class ModularArmorItem extends ArmorItem {
             }
         }
         return true;
+    }
+
+    @Override
+    public boolean makesPiglinsNeutral(ItemStack stack, LivingEntity wearer) {
+        return checkForUpgrade(stack, ModItems.PIGLIN_UPGRADE.get());
+    }
+
+    @Override
+    public boolean canWalkOnPowderedSnow(ItemStack stack, LivingEntity wearer) {
+        return checkForUpgrade(stack, ModItems.SNOW_WALKER_UPGRADE.get());
+    }
+
+    protected boolean checkForUpgrade(ItemStack stack, Item item) {
+        LazyOptional<IItemHandler> cap = stack.getCapability(ForgeCapabilities.ITEM_HANDLER);
+        if (cap.isPresent()) {
+            IItemHandler handler = cap.orElseThrow(IllegalStateException::new);
+            for (int i = 0; i < handler.getSlots(); i++) {
+                ItemStack upgrade = handler.getStackInSlot(i);
+                if (upgrade.getItem() == item) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     @Override

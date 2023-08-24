@@ -6,6 +6,7 @@ import de.miniwar.modulararmor.gui.slot.ArmorModifierSlot;
 import de.miniwar.modulararmor.gui.slot.DeactivatableSlotItemHandler;
 import de.miniwar.modulararmor.gui.slot.ArmorSlot;
 import de.miniwar.modulararmor.gui.slot.SlotValidator;
+import de.miniwar.modulararmor.item.IArmorUpgradeItems;
 import de.miniwar.modulararmor.item.custom.ModularArmorItem;
 import de.miniwar.modulararmor.item.custom.UpgradeItem;
 import net.minecraft.network.FriendlyByteBuf;
@@ -48,7 +49,11 @@ public class ArmorModifierMenu extends AbstractContainerMenu implements SlotVali
 
     @Override
     public boolean isValidItemForSlot(ItemStack stack) {
-        return stack.getItem() instanceof UpgradeItem && this.slots.get(TE_INVENTORY_FIRST_SLOT_INDEX).hasItem();
+        var item = stack.getItem();
+        if (item instanceof IArmorUpgradeItems armorUpgradeItem) {
+            return armorUpgradeItem.isApplicableTo((ModularArmorItem) getArmorItem());
+        }
+        return item instanceof UpgradeItem && this.slots.get(TE_INVENTORY_FIRST_SLOT_INDEX).hasItem();
     }
 
     public void modifyItem(ItemStack stack) {
@@ -70,6 +75,10 @@ public class ArmorModifierMenu extends AbstractContainerMenu implements SlotVali
                 }
             });
         }
+    }
+
+    ModularArmorItem getArmorItem() {
+        return (ModularArmorItem) this.slots.get(TE_INVENTORY_FIRST_SLOT_INDEX).getItem().getItem();
     }
 
     public void getUpgrades(ItemStack stack) {
