@@ -1,18 +1,15 @@
 package de.miniwar.modulararmor.gui.slot;
 
 import de.miniwar.modulararmor.item.ModItems;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.Container;
-import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.SlotItemHandler;
 
-import javax.annotation.Nullable;
-
-public class RestrictedInputSlot extends Slot {
+public class RestrictedInputSlotItemHandler extends SlotItemHandler {
     private final PlacableItemType which;
 
-    public RestrictedInputSlot(Container container, int id, int x, int y, PlacableItemType valid) {
-        super(container, id, x, y);
+    public RestrictedInputSlotItemHandler(IItemHandler itemHandler, int index, int xPosition, int yPosition, PlacableItemType valid) {
+        super(itemHandler, index, xPosition, yPosition);
         this.which = valid;
     }
 
@@ -32,7 +29,7 @@ public class RestrictedInputSlot extends Slot {
     }
 
     public enum PlacableItemType {
-        ARMOR(),
+        ARMOR();
 
         PlacableItemType() {
         }

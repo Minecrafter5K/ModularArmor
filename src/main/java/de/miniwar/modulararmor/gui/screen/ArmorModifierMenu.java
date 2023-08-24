@@ -3,8 +3,8 @@ package de.miniwar.modulararmor.gui.screen;
 import de.miniwar.modulararmor.block.ModBlocks;
 import de.miniwar.modulararmor.block.entity.ArmorModifierBlockEntity;
 import de.miniwar.modulararmor.gui.slot.ArmorModifierSlot;
-import de.miniwar.modulararmor.gui.slot.DeactivatableSlot;
-import de.miniwar.modulararmor.gui.slot.RestrictedInputSlot;
+import de.miniwar.modulararmor.gui.slot.DeactivatableSlotItemHandler;
+import de.miniwar.modulararmor.gui.slot.ArmorSlot;
 import de.miniwar.modulararmor.gui.slot.SlotValidator;
 import de.miniwar.modulararmor.item.custom.ModularArmorItem;
 import de.miniwar.modulararmor.item.custom.UpgradeItem;
@@ -35,12 +35,13 @@ public class ArmorModifierMenu extends AbstractContainerMenu implements SlotVali
 
         addPlayerInventory(inv);
         addPlayerHotbar(inv);
+        addPlayerArmor(inv);
 
         this.blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(handler -> {
-            this.addSlot(new ArmorModifierSlot(this, handler, 0, 79, 23, RestrictedInputSlot.PlacableItemType.ARMOR));
+            this.addSlot(new ArmorModifierSlot(this, handler, 0, 79, 23));
 
             for (int i = 0; i < 8; ++i) {
-                this.addSlot(new DeactivatableSlot(this, 1, handler, i + 1, 10 + i * 20, 50));
+                this.addSlot(new DeactivatableSlotItemHandler(this, 1, handler, i + 1, 10 + i * 20, 50));
             }
         });
     }
@@ -101,17 +102,18 @@ public class ArmorModifierMenu extends AbstractContainerMenu implements SlotVali
     //  0 - 8 = hotbar slots (which will map to the InventoryPlayer slot numbers 0 - 8)
     //  9 - 35 = player inventory slots (which map to the InventoryPlayer slot numbers 9 - 35)
     //  36 - 44 = TileInventory slots, which map to our TileEntity slot numbers 0 - 8)
+
+    private static final int ARMOR_SLOT_COUNT = 4;
     private static final int HOTBAR_SLOT_COUNT = 9;
     private static final int PLAYER_INVENTORY_ROW_COUNT = 3;
     private static final int PLAYER_INVENTORY_COLUMN_COUNT = 9;
     private static final int PLAYER_INVENTORY_SLOT_COUNT = PLAYER_INVENTORY_COLUMN_COUNT * PLAYER_INVENTORY_ROW_COUNT;
-    private static final int VANILLA_SLOT_COUNT = HOTBAR_SLOT_COUNT + PLAYER_INVENTORY_SLOT_COUNT;
+    private static final int VANILLA_SLOT_COUNT = HOTBAR_SLOT_COUNT + PLAYER_INVENTORY_SLOT_COUNT + ARMOR_SLOT_COUNT;
     private static final int VANILLA_FIRST_SLOT_INDEX = 0;
     private static final int TE_INVENTORY_FIRST_SLOT_INDEX = VANILLA_FIRST_SLOT_INDEX + VANILLA_SLOT_COUNT;
-
     // THIS YOU HAVE TO DEFINE!
-    private static final int TE_INVENTORY_SLOT_COUNT = 9;  // must be the number of slots you have!
 
+    private static final int TE_INVENTORY_SLOT_COUNT = 9;  // must be the number of slots you have!
     @Override
     public ItemStack quickMoveStack(Player playerIn, int index) {
         Slot sourceSlot = slots.get(index);
@@ -121,12 +123,14 @@ public class ArmorModifierMenu extends AbstractContainerMenu implements SlotVali
 
         // Check if the slot clicked is one of the vanilla container slots
         if (index < VANILLA_FIRST_SLOT_INDEX + VANILLA_SLOT_COUNT) {
+            getUpgrades(sourceStack);
             // This is a vanilla container slot so merge the stack into the tile inventory
             if (!moveItemStackTo(sourceStack, TE_INVENTORY_FIRST_SLOT_INDEX, TE_INVENTORY_FIRST_SLOT_INDEX
                     + TE_INVENTORY_SLOT_COUNT, false)) {
                 return ItemStack.EMPTY;  // EMPTY_ITEM
             }
         } else if (index < TE_INVENTORY_FIRST_SLOT_INDEX + TE_INVENTORY_SLOT_COUNT) {
+            modifyItem(sourceStack);
             // This is a TE slot so merge the stack into the players inventory
             if (!moveItemStackTo(sourceStack, VANILLA_FIRST_SLOT_INDEX, VANILLA_FIRST_SLOT_INDEX + VANILLA_SLOT_COUNT, false)) {
                 return ItemStack.EMPTY;
@@ -161,6 +165,12 @@ public class ArmorModifierMenu extends AbstractContainerMenu implements SlotVali
     private void addPlayerHotbar(Inventory playerInventory) {
         for (int i = 0; i < 9; ++i) {
             this.addSlot(new Slot(playerInventory, i, 8 + i * 18, 142));
+        }
+    }
+
+    private void addPlayerArmor(Inventory playerInventory) {
+        for (int i = 0; i < 4; i++) {
+            this.addSlot(new ArmorSlot(playerInventory, VANILLA_SLOT_COUNT - ARMOR_SLOT_COUNT + i, -15, 138 + i * -18, i));
         }
     }
 }

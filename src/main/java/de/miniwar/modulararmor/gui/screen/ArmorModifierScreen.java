@@ -23,10 +23,12 @@ public class ArmorModifierScreen extends AbstractContainerScreen<ArmorModifierMe
 
     @Override
     protected void renderBg(PoseStack pPoseStack, float pPartialTick, int pMouseX, int pMouseY) {
+        imageHeight = 166;
+        imageWidth = 199;
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         RenderSystem.setShaderTexture(0, TEXTURE);
-        int x = (width - imageWidth) / 2;
+        int x = ((width - imageWidth) / 2) - (23 / 2);
         int y = (height - imageHeight) / 2;
 
         blit(pPoseStack, x, y, 0, 0, imageWidth, imageHeight);

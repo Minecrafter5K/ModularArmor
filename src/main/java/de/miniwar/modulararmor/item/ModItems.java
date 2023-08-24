@@ -32,7 +32,10 @@ public class ModItems {
             new ModularArmorItem(ArmorMaterials.LEATHER, ArmorItem.Type.BOOTS, new Item.Properties()));
 
     public static final RegistryObject<Item> BASIC_BATTERY = ITEMS.register("basic_battery",
-            () -> new BasicBatteryItem(new Item.Properties().stacksTo(1)));
+            () -> new BasicBatteryItem(new Item.Properties()));
+
+    public static final RegistryObject<Item> ELYTRA_UPGRADE = ITEMS.register("elytra_upgrade",
+            () -> new UpgradeItem(new Item.Properties()));
 
 
     public static void register(IEventBus eventBus) {

@@ -6,11 +6,11 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.items.IItemHandler;
 import org.jetbrains.annotations.NotNull;
 
-public class ArmorModifierSlot extends RestrictedInputSlot {
+public class ArmorModifierSlot extends RestrictedInputSlotItemHandler {
     ArmorModifierMenu menu;
 
-    public ArmorModifierSlot(ArmorModifierMenu menu, IItemHandler itemHandler, int index, int xPosition, int yPosition, PlacableItemType valid) {
-        super(itemHandler, index, xPosition, yPosition, valid);
+    public ArmorModifierSlot(ArmorModifierMenu menu, IItemHandler itemHandler, int index, int xPosition, int yPosition) {
+        super(itemHandler, index, xPosition, yPosition, PlacableItemType.ARMOR);
         this.menu = menu;
     }
 
