@@ -2,10 +2,12 @@ package de.miniwar.modulararmor.gui.screen;
 
 import de.miniwar.modulararmor.block.ModBlocks;
 import de.miniwar.modulararmor.block.entity.ArmorModifierBlockEntity;
+import de.miniwar.modulararmor.gui.slot.ArmorModifierSlot;
 import de.miniwar.modulararmor.gui.slot.DeactivatableSlot;
 import de.miniwar.modulararmor.gui.slot.RestrictedInputSlot;
 import de.miniwar.modulararmor.gui.slot.SlotValidator;
 import de.miniwar.modulararmor.item.ModItems;
+import de.miniwar.modulararmor.item.custom.ModularArmorItem;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -16,7 +18,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.items.SlotItemHandler;
 
 public class ArmorModifierMenu extends AbstractContainerMenu implements SlotValidator {
     public final ArmorModifierBlockEntity blockEntity;
@@ -36,22 +37,81 @@ public class ArmorModifierMenu extends AbstractContainerMenu implements SlotVali
         addPlayerHotbar(inv);
 
         this.blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(handler -> {
-            this.addSlot(new RestrictedInputSlot(handler, 0, 79, 23, RestrictedInputSlot.PlacableItemType.ARMOR));
+            this.addSlot(new ArmorModifierSlot(this, handler, 0, 79, 23, RestrictedInputSlot.PlacableItemType.ARMOR));
 
             for (int i = 0; i < 8; ++i) {
-                this.addSlot(new DeactivatableSlot(this, handler, i + 1, 10 + i * 20, 50));
+                this.addSlot(new DeactivatableSlot(this, 1, handler, i + 1, 10 + i * 20, 50));
             }
         });
     }
 
     @Override
     public boolean isValidItemForSlot(ItemStack stack) {
-        if (stack.getItem() == ModItems.TEST_ITEM.get() && this.slots.get(36).hasItem()) {
-            return true;
-        }
-
-        return false;
+        return stack.getItem() == ModItems.TEST_ITEM.get() && this.slots.get(36).hasItem();
     }
+
+    public void modifyItem(ItemStack stack) {
+        if (stack.getItem() instanceof ModularArmorItem) {
+            stack.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(cap -> {
+                for (int i = 0; i < cap.getSlots(); i++) {
+                    // i plus fist slot index of the armor modifier menu plus one because the first slot is the armor slot
+                    Slot slot = this.slots.get(i + TE_INVENTORY_FIRST_SLOT_INDEX + 1);
+                    if (slot.hasItem()) {
+                        ItemStack slotStack = slot.getItem();
+                        ItemStack remainingStack = cap.insertItem(i, slotStack, false);
+
+                        if (remainingStack.isEmpty()) {
+                            slot.set(ItemStack.EMPTY);
+                        } else {
+                            slot.set(remainingStack);
+                        }
+                    }
+                }
+
+                System.out.println("modifyItem");
+                System.out.println(cap.getStackInSlot(0));
+                System.out.println(cap.getStackInSlot(1));
+                System.out.println(cap.getStackInSlot(2));
+                System.out.println(cap.getStackInSlot(3));
+                System.out.println(cap.getStackInSlot(4));
+                System.out.println(cap.getStackInSlot(5));
+                System.out.println(cap.getStackInSlot(6));
+                System.out.println(cap.getStackInSlot(7));
+            });
+        }
+    }
+
+    public void getUpgrades(ItemStack stack) {
+        if (stack.getItem() instanceof ModularArmorItem) {
+
+            stack.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(cap -> {
+                System.out.println("getUpgrades");
+                System.out.println(cap.getStackInSlot(0));
+                System.out.println(cap.getStackInSlot(1));
+                System.out.println(cap.getStackInSlot(2));
+                System.out.println(cap.getStackInSlot(3));
+                System.out.println(cap.getStackInSlot(4));
+                System.out.println(cap.getStackInSlot(5));
+                System.out.println(cap.getStackInSlot(6));
+                System.out.println(cap.getStackInSlot(7));
+                // Loop through the slots in your ArmorModifierMenu
+                for (int i = 0; i < cap.getSlots(); i++) {
+                    // i plus fist slot index of the armor modifier menu plus one because the first slot is the armor slot
+                    Slot slot = this.slots.get(i + TE_INVENTORY_FIRST_SLOT_INDEX + 1);
+
+                    if (!slot.hasItem()) {
+                        ItemStack slotStack = cap.getStackInSlot(i);
+
+                        if (!slotStack.isEmpty()) {
+                            slot.set(slotStack);
+                            cap.extractItem(i, slotStack.getCount(), false);
+                        }
+                    }
+                }
+            });
+        }
+    }
+
 
     // CREDIT GOES TO: diesieben07 | https://github.com/diesieben07/SevenCommons
     // must assign a slot number to each of the slots used by the GUI.

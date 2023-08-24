@@ -1,7 +1,9 @@
 package de.miniwar.modulararmor.item;
 
 import de.miniwar.modulararmor.ModularArmor;
+import de.miniwar.modulararmor.item.custom.ModularArmorItem;
 import net.minecraft.world.item.ArmorItem;
+import net.minecraft.world.item.ArmorMaterials;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
@@ -15,18 +17,18 @@ public class ModItems {
     public static final RegistryObject<Item> TEST_ITEM = ITEMS.register("test_item",
             () -> new Item(new Item.Properties()));
 
-    public static final RegistryObject<Item> MODULAR_HELMET = ITEMS.register("modular_helmet",
-            () -> new ArmorItem(ModArmorMaterials.MODULAR, ArmorItem.Type.HELMET,
-                    new Item.Properties()));
-    public static final RegistryObject<Item> MODULAR_CHESTPLATE = ITEMS.register("modular_chestplate",
-            () -> new ArmorItem(ModArmorMaterials.MODULAR, ArmorItem.Type.CHESTPLATE,
-                    new Item.Properties()));
-    public static final RegistryObject<Item> MODULAR_LEGGINGS = ITEMS.register("modular_leggings",
-            () -> new ArmorItem(ModArmorMaterials.MODULAR, ArmorItem.Type.LEGGINGS,
-                    new Item.Properties()));
-    public static final RegistryObject<Item> MODULAR_BOOTS = ITEMS.register("modular_boots",
-            () -> new ArmorItem(ModArmorMaterials.MODULAR, ArmorItem.Type.BOOTS,
-                    new Item.Properties()));
+    public static final RegistryObject<Item> MODULAR_HELMET = ITEMS.register("modular_helmet", () ->
+            new ModularArmorItem(ArmorMaterials.LEATHER, ArmorItem.Type.HELMET, new Item.Properties()));
+
+    public static final RegistryObject<Item> MODULAR_CHESTPLATE = ITEMS.register("modular_chestplate", () ->
+            new ModularArmorItem(ArmorMaterials.LEATHER, ArmorItem.Type.CHESTPLATE, new Item.Properties()));
+
+    public static final RegistryObject<Item> MODULAR_LEGGINGS = ITEMS.register("modular_leggings", () ->
+            new ModularArmorItem(ArmorMaterials.LEATHER, ArmorItem.Type.LEGGINGS, new Item.Properties()));
+
+    public static final RegistryObject<Item> MODULAR_BOOTS = ITEMS.register("modular_boots", () ->
+            new ModularArmorItem(ArmorMaterials.LEATHER, ArmorItem.Type.BOOTS, new Item.Properties()));
+
 
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);
