@@ -48,6 +48,7 @@ public class ModularArmor {
             event.accept(ModItems.MODULAR_CHESTPLATE);
             event.accept(ModItems.MODULAR_LEGGINGS);
             event.accept(ModItems.MODULAR_BOOTS);
+            event.accept(ModItems.BASIC_BATTERY);
         }
         if (event.getTab() == CreativeModeTabs.FUNCTIONAL_BLOCKS) {
             event.accept(ModBlocks.ARMOR_MODIFIER_BLOCK);

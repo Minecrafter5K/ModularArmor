@@ -6,8 +6,8 @@ import de.miniwar.modulararmor.gui.slot.ArmorModifierSlot;
 import de.miniwar.modulararmor.gui.slot.DeactivatableSlot;
 import de.miniwar.modulararmor.gui.slot.RestrictedInputSlot;
 import de.miniwar.modulararmor.gui.slot.SlotValidator;
-import de.miniwar.modulararmor.item.ModItems;
 import de.miniwar.modulararmor.item.custom.ModularArmorItem;
+import de.miniwar.modulararmor.item.custom.UpgradeItem;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -47,7 +47,7 @@ public class ArmorModifierMenu extends AbstractContainerMenu implements SlotVali
 
     @Override
     public boolean isValidItemForSlot(ItemStack stack) {
-        return stack.getItem() == ModItems.TEST_ITEM.get() && this.slots.get(36).hasItem();
+        return stack.getItem() instanceof UpgradeItem && this.slots.get(TE_INVENTORY_FIRST_SLOT_INDEX).hasItem();
     }
 
     public void modifyItem(ItemStack stack) {
@@ -67,16 +67,6 @@ public class ArmorModifierMenu extends AbstractContainerMenu implements SlotVali
                         }
                     }
                 }
-
-                System.out.println("modifyItem");
-                System.out.println(cap.getStackInSlot(0));
-                System.out.println(cap.getStackInSlot(1));
-                System.out.println(cap.getStackInSlot(2));
-                System.out.println(cap.getStackInSlot(3));
-                System.out.println(cap.getStackInSlot(4));
-                System.out.println(cap.getStackInSlot(5));
-                System.out.println(cap.getStackInSlot(6));
-                System.out.println(cap.getStackInSlot(7));
             });
         }
     }
@@ -85,15 +75,6 @@ public class ArmorModifierMenu extends AbstractContainerMenu implements SlotVali
         if (stack.getItem() instanceof ModularArmorItem) {
 
             stack.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(cap -> {
-                System.out.println("getUpgrades");
-                System.out.println(cap.getStackInSlot(0));
-                System.out.println(cap.getStackInSlot(1));
-                System.out.println(cap.getStackInSlot(2));
-                System.out.println(cap.getStackInSlot(3));
-                System.out.println(cap.getStackInSlot(4));
-                System.out.println(cap.getStackInSlot(5));
-                System.out.println(cap.getStackInSlot(6));
-                System.out.println(cap.getStackInSlot(7));
                 // Loop through the slots in your ArmorModifierMenu
                 for (int i = 0; i < cap.getSlots(); i++) {
                     // i plus fist slot index of the armor modifier menu plus one because the first slot is the armor slot

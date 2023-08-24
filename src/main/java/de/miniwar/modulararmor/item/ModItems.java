@@ -1,7 +1,9 @@
 package de.miniwar.modulararmor.item;
 
 import de.miniwar.modulararmor.ModularArmor;
+import de.miniwar.modulararmor.item.custom.BasicBatteryItem;
 import de.miniwar.modulararmor.item.custom.ModularArmorItem;
+import de.miniwar.modulararmor.item.custom.UpgradeItem;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterials;
 import net.minecraft.world.item.Item;
@@ -15,7 +17,7 @@ public class ModItems {
             DeferredRegister.create(ForgeRegistries.ITEMS, ModularArmor.MOD_ID);
 
     public static final RegistryObject<Item> TEST_ITEM = ITEMS.register("test_item",
-            () -> new Item(new Item.Properties()));
+            () -> new UpgradeItem(new Item.Properties()));
 
     public static final RegistryObject<Item> MODULAR_HELMET = ITEMS.register("modular_helmet", () ->
             new ModularArmorItem(ArmorMaterials.LEATHER, ArmorItem.Type.HELMET, new Item.Properties()));
@@ -28,6 +30,9 @@ public class ModItems {
 
     public static final RegistryObject<Item> MODULAR_BOOTS = ITEMS.register("modular_boots", () ->
             new ModularArmorItem(ArmorMaterials.LEATHER, ArmorItem.Type.BOOTS, new Item.Properties()));
+
+    public static final RegistryObject<Item> BASIC_BATTERY = ITEMS.register("basic_battery",
+            () -> new BasicBatteryItem(new Item.Properties().stacksTo(1)));
 
 
     public static void register(IEventBus eventBus) {
