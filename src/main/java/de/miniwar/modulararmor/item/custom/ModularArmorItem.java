@@ -41,7 +41,7 @@ public class ModularArmorItem extends ArmorItem {
 
     static class ModularArmorCaps implements ICapabilitySerializable<CompoundTag> {
         private final ItemStack stack;
-        private ModularArmorItemHandler handler;
+        private final ModularArmorItemHandler handler;
 
         public ModularArmorCaps(ItemStack stack) {
             this.stack = stack;

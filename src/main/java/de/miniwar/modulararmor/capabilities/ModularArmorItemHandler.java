@@ -2,7 +2,6 @@ package de.miniwar.modulararmor.capabilities;
 
 import de.miniwar.modulararmor.item.ModItems;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.Tag;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.items.IItemHandler;

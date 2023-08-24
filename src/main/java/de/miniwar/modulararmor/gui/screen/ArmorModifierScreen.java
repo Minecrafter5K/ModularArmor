@@ -29,7 +29,7 @@ public class ArmorModifierScreen extends AbstractContainerScreen<ArmorModifierMe
         int x = (width - imageWidth) / 2;
         int y = (height - imageHeight) / 2;
 
-        this.blit(pPoseStack, x, y, 0, 0, imageWidth, imageHeight);
+        blit(pPoseStack, x, y, 0, 0, imageWidth, imageHeight);
     }
 
     @Override
