@@ -1,0 +1,10 @@
+{
+  "item.modulararmor.test_item": "Test Gegenstand",
+
+  "item.modulararmor.modular_helmet": "Modularer Helm",
+  "item.modulararmor.modular_chestplate": "Modulare Brustplatte",
+  "item.modulararmor.modular_leggings": "Modulare Hose",
+  "item.modulararmor.modular_boots": "Modulare Schuhe",
+
+  "block.modulararmor.armor_modifier": "Rüstungs Modifizierer"
+}

@@ -1,5 +1,6 @@
 package de.miniwar.modulararmor.block.entity;
 
+import de.miniwar.modulararmor.block.ModBlocks;
 import de.miniwar.modulararmor.gui.screen.ArmorModifierMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -37,8 +38,8 @@ public class ArmorModifierBlockEntity extends BlockEntity implements MenuProvide
     }
 
     @Override
-    public Component getDisplayName() {
-        return Component.literal("Armor Modifier");
+    public @NotNull Component getDisplayName() {
+        return Component.translatable(ModBlocks.ARMOR_MODIFIER_BLOCK.get().getDescriptionId());
     }
 
     @Nullable
