@@ -1,0 +1,13 @@
+{
+  "block.modulararmor.armor_modifier": "Armor Modifier",
+  "item.modulararmor.basic_battery": "Basic Battery",
+  "item.modulararmor.elytra_upgrade": "Elytra Upgrade",
+  "item.modulararmor.modular_boots": "Modular Boots",
+  "item.modulararmor.modular_chestplate": "Modular Chestplate",
+  "item.modulararmor.modular_helmet": "Modular Helmet",
+  "item.modulararmor.modular_leggings": "Modular Leggings",
+  "item.modulararmor.piglin_upgrade": "Piglin Upgrade",
+  "item.modulararmor.snow_walker_upgrade": "Snow Walker Upgrade",
+  "item.modulararmor.speed_upgrade": "Speed Upgrade",
+  "item.modulararmor.test_item": "Test Item"
+}

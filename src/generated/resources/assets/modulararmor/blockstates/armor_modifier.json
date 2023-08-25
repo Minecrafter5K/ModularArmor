@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "modulararmor:block/armor_modifier"
+    }
+  }
+}
